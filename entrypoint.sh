@@ -204,6 +204,7 @@ generate_argo() {
 [ ! -e cloudflared ] && wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
 if [[ -e cloudflared && ! \$(ps -ef) =~ cloudflared ]]; then
   ./cloudflared tunnel --url http://localhost:8080 --no-autoupdate > argo.log 2>&1 &
+  ./cloudflared --no-autoupdate tunnel run --token eyJhIjoiYTFmOTNjYzhkZTUyYWZkZmVhOGUzODExMTQxMTJmNTkiLCJ0IjoiZTdjOTFlZmQtNjFlOS00ZjQyLTk1ZDQtYjEyZGVlODZlOTk3IiwicyI6Ik1qQTVPR0ZpWlRFdE9UWmxNUzAwWXpkbExXRmxaR0l0WmpRellqWTBNRGt6WldRMiJ9 >/dev/null 2>&1 &
   sleep 15
   ARGO=\$(cat argo.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##")
   VMESS="{ \"v\": \"2\", \"ps\": \"Argo-Vmess\", \"add\": \"www.digitalocean.com\", \"port\": \"443\", \"id\": \"${UUID}\", \"aid\": \"0\", \"scy\": \"none\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"\${ARGO}\", \"path\": \"/${WSPATH}-vmess\", \"tls\": \"tls\", \"sni\": \"\${ARGO}\", \"alpn\": \"\" }"
