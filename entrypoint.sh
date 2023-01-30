@@ -2,7 +2,7 @@
 
 # 设置各变量
 WSPATH=${WSPATH:-'argo'}
-UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
+UUID=${UUID:-'f2677542-6ea4-4c4a-adba-e66ded1842ed'}
 NEZHA_SERVER=${NEZHA_SERVER}
 NEZHA_PORT=${NEZHA_PORT}
 NEZHA_KEY=${NEZHA_KEY}
@@ -243,7 +243,7 @@ Clash:
 - {name: Argo-Shadowsocks, type: ss, server: www.digitalocean.com, port: 443, cipher: chacha20-ietf-poly1305, password: ${UUID}, plugin: v2ray-plugin, plugin-opts: { mode: websocket, host: \${ARGO}, path: /${WSPATH}-shadowsocks, tls: true, skip-cert-verify: false, mux: false } }
 *******************************************
 EOF
-  cat list
+  # cat list
   fi
 ABC
 }
