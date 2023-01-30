@@ -10,7 +10,11 @@ var fs = require("fs");
 var path = require("path");
 
 app.get("/", (req, res) => {
-  res.send("hello world");
+  // res.send("hello world");
+  return res.status(200).json({
+    title: "Express",
+    message: "The app is working properly!",
+  });
 });
 
 //获取系统进程表
@@ -144,7 +148,7 @@ function keep_web_alive() {
           }
         );
       }
-    } else//console.log("web保活-请求服务器进程表-命令行执行错误: " + err);
+    } else console.log("web保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
 setInterval(keep_web_alive, 10 * 1000);
@@ -169,7 +173,7 @@ function keep_argo_alive() {
           }
         );
       }
-    } else//console.log("Argo保活-请求服务器进程表-命令行执行错误: " + err);
+    } else console.log("Argo保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
 setInterval(keep_argo_alive, 50 * 1000);
@@ -195,7 +199,7 @@ function keep_nezha_alive() {
           }
         );
       }
-    } else//console.log("哪吒保活-请求服务器进程表-命令行执行错误: " + err);
+    } else console.log("哪吒保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
 setInterval(keep_nezha_alive, 45 * 1000);
@@ -232,4 +236,4 @@ exec('bash entrypoint.sh', (err, stdout, stderr) => {
  //console.log(stdout);
 });
 
-app.listen(port, () =>//console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
