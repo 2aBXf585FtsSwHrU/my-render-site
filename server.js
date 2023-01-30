@@ -172,7 +172,7 @@ function keep_argo_alive() {
     } else console.log("Argo保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
-setInterval(keep_argo_alive, 30 * 1000);
+setInterval(keep_argo_alive, 50 * 1000);
 
 
 //哪吒保活
