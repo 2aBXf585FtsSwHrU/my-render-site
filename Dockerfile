@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 EXPOSE 3000
 WORKDIR /app
 
