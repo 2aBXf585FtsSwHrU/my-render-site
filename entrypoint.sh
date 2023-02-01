@@ -83,7 +83,7 @@ generate_config() {
             ],
             "decryption":"none"
          },
-         "tag":"inbounds-vless",
+         "tag":"inbound-vless",
          "streamSettings":{
             "network":"ws",
             "security":"none",
