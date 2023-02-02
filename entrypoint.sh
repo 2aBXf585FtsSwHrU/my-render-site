@@ -190,6 +190,15 @@ generate_config() {
    },
    "outbounds":[
       {
+        "protocol": "freedom",
+        "settings": {}
+      },
+      {
+        "protocol": "blackhole",
+        "settings": {},
+        "tag": "blocked"
+      },
+      {
          "protocol":"wireguard",
          "settings":{
             "secretKey":"yG/Phr+fhiBR95b22GThzxGs/Fccyl0U9H4X0GwEeHs=",
@@ -205,9 +214,6 @@ generate_config() {
             ]
          },
          "tag":"wireguard-1"
-      },
-      {
-         "protocol":"freedom"
       }
    ],
    "routing":{
@@ -218,6 +224,20 @@ generate_config() {
             "inboundTag":[
                "inbound-vless"
             ]
+         },
+         {
+          "ip": [
+            "geoip:private"
+          ],
+          "outboundTag": "blocked",
+          "type": "field"
+         },
+         {
+          "outboundTag": "blocked",
+          "protocol": [
+            "bittorrent"
+          ],
+          "type": "field"
          }
       ]
    }
