@@ -10,9 +10,7 @@ RUN apt-get update &&\
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb &&\
     dpkg -i cloudflared.deb &&\
     rm -f cloudflared.deb &&\
-    chmod +x web.js &&\
-    rm -rf /app/entrypoint.sh &&\
-    rm -rf /app/server.js
+    chmod +x web.js
 
 # COPY server.js /app/server.js
 
