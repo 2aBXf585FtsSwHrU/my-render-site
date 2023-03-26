@@ -2,246 +2,223 @@
 
 # 设置各变量
 WSPATH=${WSPATH:-'argo'}
-UUID=${UUID:-'f2677542-6ea4-4c4a-adba-e66ded1842ed'}
-NEZHA_SERVER=${NEZHA_SERVER}
-NEZHA_PORT=${NEZHA_PORT}
-NEZHA_KEY=${NEZHA_KEY}
-TOKEN=${TOKEN}
+UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
 
 generate_config() {
   cat > config.json << EOF
 {
-   "log":{
-      "access":"/dev/null",
-      "error":"/dev/null",
-      "loglevel":"none"
-   },
-   "inbounds":[
-      {
-         "port":8080,
-         "protocol":"vless",
-         "settings":{
-            "clients":[
-               {
-                  "id":"${UUID}",
-                  "flow":"xtls-rprx-direct"
-               }
-            ],
-            "decryption":"none",
-            "fallbacks":[
-               {
-                  "dest":3001
-               },
-               {
-                  "path":"/${WSPATH}-vless",
-                  "dest":3002
-               },
-               {
-                  "path":"/${WSPATH}-vmess",
-                  "dest":3003
-               },
-               {
-                  "path":"/${WSPATH}-trojan",
-                  "dest":3004
-               },
-               {
-                  "path":"/${WSPATH}-shadowsocks",
-                  "dest":3005
-               }
-            ]
-         },
-         "streamSettings":{
-            "network":"tcp"
-         }
-      },
-      {
-         "port":3001,
-         "listen":"127.0.0.1",
-         "protocol":"vless",
-         "settings":{
-            "clients":[
-               {
-                  "id":"${UUID}"
-               }
-            ],
-            "decryption":"none"
-         },
-         "streamSettings":{
-            "network":"ws",
-            "security":"none"
-         }
-      },
-      {
-         "port":3002,
-         "listen":"127.0.0.1",
-         "protocol":"vless",
-         "settings":{
-            "clients":[
-               {
-                  "id":"${UUID}",
-                  "level":0
-               }
-            ],
-            "decryption":"none"
-         },
-         "tag":"inbound-vless",
-         "streamSettings":{
-            "network":"ws",
-            "security":"none",
-            "wsSettings":{
-               "path":"/${WSPATH}-vless"
+    "log":{
+        "access":"/dev/null",
+        "error":"/dev/null",
+        "loglevel":"none"
+    },
+    "inbounds":[
+        {
+            "port":8081,
+            "protocol":"vless",
+            "settings":{
+                "clients":[
+                    {
+                        "id":"${UUID}",
+                        "flow":"xtls-rprx-vision"
+                    }
+                ],
+                "decryption":"none",
+                "fallbacks":[
+                    {
+                        "dest":3001
+                    },
+                    {
+                        "path":"/${WSPATH}-vless",
+                        "dest":3002
+                    },
+                    {
+                        "path":"/${WSPATH}-vmess",
+                        "dest":3003
+                    },
+                    {
+                        "path":"/${WSPATH}-trojan",
+                        "dest":3004
+                    },
+                    {
+                        "path":"/${WSPATH}-shadowsocks",
+                        "dest":3005
+                    }
+                ]
+            },
+            "streamSettings":{
+                "network":"tcp"
             }
-         },
-         "sniffing":{
-            "enabled":true,
-            "destOverride":[
-               "http",
-               "tls"
-            ],
-            "metadataOnly":false
-         }
-      },
-      {
-         "port":3003,
-         "listen":"127.0.0.1",
-         "protocol":"vmess",
-         "settings":{
-            "clients":[
-               {
-                  "id":"${UUID}",
-                  "alterId":0
-               }
-            ]
-         },
-         "streamSettings":{
-            "network":"ws",
-            "wsSettings":{
-               "path":"/${WSPATH}-vmess"
+        },
+        {
+            "port":3001,
+            "listen":"127.0.0.1",
+            "protocol":"vless",
+            "settings":{
+                "clients":[
+                    {
+                        "id":"${UUID}"
+                    }
+                ],
+                "decryption":"none"
+            },
+            "streamSettings":{
+                "network":"ws",
+                "security":"none"
             }
-         },
-         "sniffing":{
-            "enabled":true,
-            "destOverride":[
-               "http",
-               "tls"
-            ],
-            "metadataOnly":false
-         }
-      },
-      {
-         "port":3004,
-         "listen":"127.0.0.1",
-         "protocol":"trojan",
-         "settings":{
-            "clients":[
-               {
-                  "password":"${UUID}"
-               }
-            ]
-         },
-         "streamSettings":{
-            "network":"ws",
-            "security":"none",
-            "wsSettings":{
-               "path":"/${WSPATH}-trojan"
+        },
+        {
+            "port":3002,
+            "listen":"127.0.0.1",
+            "protocol":"vless",
+            "settings":{
+                "clients":[
+                    {
+                        "id":"${UUID}",
+                        "level":0
+                    }
+                ],
+                "decryption":"none"
+            },
+            "streamSettings":{
+                "network":"ws",
+                "security":"none",
+                "wsSettings":{
+                    "path":"/${WSPATH}-vless"
+                }
+            },
+            "sniffing":{
+                "enabled":true,
+                "destOverride":[
+                    "http",
+                    "tls"
+                ],
+                "metadataOnly":false
             }
-         },
-         "sniffing":{
-            "enabled":true,
-            "destOverride":[
-               "http",
-               "tls"
-            ],
-            "metadataOnly":false
-         }
-      },
-      {
-         "port":3005,
-         "listen":"127.0.0.1",
-         "protocol":"shadowsocks",
-         "settings":{
-            "clients":[
-               {
-                  "method":"chacha20-ietf-poly1305",
-                  "password":"${UUID}"
-               }
-            ],
-            "decryption":"none"
-         },
-         "streamSettings":{
-            "network":"ws",
-            "wsSettings":{
-               "path":"/${WSPATH}-shadowsocks"
+        },
+        {
+            "port":3003,
+            "listen":"127.0.0.1",
+            "protocol":"vmess",
+            "settings":{
+                "clients":[
+                    {
+                        "id":"${UUID}",
+                        "alterId":0
+                    }
+                ]
+            },
+            "streamSettings":{
+                "network":"ws",
+                "wsSettings":{
+                    "path":"/${WSPATH}-vmess"
+                }
+            },
+            "sniffing":{
+                "enabled":true,
+                "destOverride":[
+                    "http",
+                    "tls"
+                ],
+                "metadataOnly":false
             }
-         },
-         "sniffing":{
-            "enabled":true,
-            "destOverride":[
-               "http",
-               "tls"
-            ],
-            "metadataOnly":false
-         }
-      }
-   ],
-   "dns":{
-      "servers":[
-         "https+local://8.8.8.8/dns-query"
-      ]
-   },
-   "outbounds":[
-      {
-        "protocol": "freedom",
-        "settings": {}
-      },
-      {
-        "protocol": "blackhole",
-        "settings": {},
-        "tag": "blocked"
-      },
-      {
-         "protocol":"wireguard",
-         "settings":{
-            "secretKey":"yG/Phr+fhiBR95b22GThzxGs/Fccyl0U9H4X0GwEeHs=",
-            "address":[
-               "172.16.0.2/32",
-               "2606:4700:110:86c2:d7ca:13d:b14a:e7bf/128"
-            ],
-            "peers":[
-               {
-                  "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-                  "endpoint":"engage.cloudflareclient.com:2408"
-               }
-            ]
-         },
-         "tag":"wireguard-1"
-      }
-   ],
-   "routing":{
-      "rules":[
-         {
-            "type":"field",
-            "outboundTag":"wireguard-1",
-            "inboundTag":[
-               "inbound-vless"
-            ]
-         },
-         {
-          "ip": [
-            "geoip:private"
-          ],
-          "outboundTag": "blocked",
-          "type": "field"
-         },
-         {
-          "outboundTag": "blocked",
-          "protocol": [
-            "bittorrent"
-          ],
-          "type": "field"
-         }
-      ]
-   }
+        },
+        {
+            "port":3004,
+            "listen":"127.0.0.1",
+            "protocol":"trojan",
+            "settings":{
+                "clients":[
+                    {
+                        "password":"${UUID}"
+                    }
+                ]
+            },
+            "streamSettings":{
+                "network":"ws",
+                "security":"none",
+                "wsSettings":{
+                    "path":"/${WSPATH}-trojan"
+                }
+            },
+            "sniffing":{
+                "enabled":true,
+                "destOverride":[
+                    "http",
+                    "tls"
+                ],
+                "metadataOnly":false
+            }
+        },
+        {
+            "port":3005,
+            "listen":"127.0.0.1",
+            "protocol":"shadowsocks",
+            "settings":{
+                "clients":[
+                    {
+                        "method":"chacha20-ietf-poly1305",
+                        "password":"${UUID}"
+                    }
+                ],
+                "decryption":"none"
+            },
+            "streamSettings":{
+                "network":"ws",
+                "wsSettings":{
+                    "path":"/${WSPATH}-shadowsocks"
+                }
+            },
+            "sniffing":{
+                "enabled":true,
+                "destOverride":[
+                    "http",
+                    "tls"
+                ],
+                "metadataOnly":false
+            }
+        }
+    ],
+    "dns":{
+        "servers":[
+            "https+local://8.8.8.8/dns-query"
+        ]
+    },
+    "outbounds":[
+        {
+            "protocol":"freedom"
+        },
+        {
+            "tag":"WARP",
+            "protocol":"wireguard",
+            "settings":{
+                "secretKey":"cKE7LmCF61IhqqABGhvJ44jWXp8fKymcMAEVAzbDF2k=",
+                "address":[
+                    "172.16.0.2/32",
+                    "fd01:5ca1:ab1e:823e:e094:eb1c:ff87:1fab/128"
+                ],
+                "peers":[
+                    {
+                        "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                        "endpoint":"162.159.193.10:2408"
+                    }
+                ]
+            }
+        }
+    ],
+    "routing":{
+        "domainStrategy":"AsIs",
+        "rules":[
+            {
+                "type":"field",
+                "domain":[
+                    "domain:openai.com",
+                    "domain:ai.com"
+                ],
+                "outboundTag":"WARP"
+            }
+        ]
+    }
 }
 EOF
 }
@@ -249,52 +226,57 @@ EOF
 generate_argo() {
   cat > argo.sh << ABC
 #!/usr/bin/env bash
-  
-# 下载并运行 Argo
-[ ! -e cloudflared ] && wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 && chmod +x cloudflared
-if [[ -e cloudflared && ! \$(ps -ef) =~ cloudflared ]]; then
-  ./cloudflared tunnel --url http://localhost:8080 --no-autoupdate > argo.log 2>&1 &
-  ./cloudflared --no-autoupdate tunnel run --token \${TOKEN} >/dev/null 2>&1 &
-  sleep 15
-  ARGO=\$(cat argo.log | grep -oE "https://.*[a-z]+cloudflare.com" | sed "s#https://##")
-  VMESS="{ \"v\": \"2\", \"ps\": \"Argo-Vmess\", \"add\": \"www.digitalocean.com\", \"port\": \"443\", \"id\": \"${UUID}\", \"aid\": \"0\", \"scy\": \"none\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"\${ARGO}\", \"path\": \"/${WSPATH}-vmess\", \"tls\": \"tls\", \"sni\": \"\${ARGO}\", \"alpn\": \"\" }"
+
+argo_type() {
+  if [[ -n "\${ARGO_AUTH}" && -n "\${ARGO_DOMAIN}" ]]; then
+    [[ \$ARGO_AUTH =~ TunnelSecret ]] && echo \$ARGO_AUTH > tunnel.json && echo -e "tunnel: \$(cut -d\" -f12 <<< \$ARGO_AUTH)\ncredentials-file: /app/tunnel.json" > tunnel.yml
+  else
+    ARGO_DOMAIN=\$(cat argo.log | grep -o "info.*https://.*trycloudflare.com" | sed "s@.*https://@@g" | tail -n 1)
+  fi
+}
+
+export_list() {
+  VMESS="{ \"v\": \"2\", \"ps\": \"Argo-Vmess\", \"add\": \"icook.hk\", \"port\": \"443\", \"id\": \"${UUID}\", \"aid\": \"0\", \"scy\": \"none\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"\${ARGO_DOMAIN}\", \"path\": \"/${WSPATH}-vmess?ed=2048\", \"tls\": \"tls\", \"sni\": \"\${ARGO_DOMAIN}\", \"alpn\": \"\" }"
 
   cat > list << EOF
 *******************************************
 V2-rayN:
 ----------------------------
-vless://${UUID}@www.digitalocean.com:443?encryption=none&security=tls&sni=\${ARGO}&type=ws&host=\${ARGO}&path=%2F${WSPATH}-vless#Argo-Vless
+vless://${UUID}@icook.hk:443?encryption=none&security=tls&sni=\${ARGO_DOMAIN}&type=ws&host=\${ARGO_DOMAIN}&path=%2F${WSPATH}-vless?ed=2048#Argo-Vless
 ----------------------------
 vmess://\$(echo \$VMESS | base64 -w0)
 ----------------------------
-trojan://${UUID}@www.digitalocean.com:443?security=tls&sni=\${ARGO}&type=ws&host=\${ARGO}&path=%2F${WSPATH}-trojan#Argo-Trojan
+trojan://${UUID}@icook.hk:443?security=tls&sni=\${ARGO_DOMAIN}&type=ws&host=\${ARGO_DOMAIN}&path=%2F${WSPATH}-trojan?ed=2048#Argo-Trojan
 ----------------------------
-ss://$(echo "chacha20-ietf-poly1305:${UUID}@www.digitalocean.com:443" | base64 -w0)@www.digitalocean.com:443#Argo-Shadowsocks
-由于该软件导出的链接不全，请自行处理如下: 传输协议: WS ， 伪装域名: \${ARGO} ，路径: /${WSPATH}-shadowsocks ， 传输层安全: tls ， sni: \${ARGO}
+ss://$(echo "chacha20-ietf-poly1305:${UUID}@icook.hk:443" | base64 -w0)@icook.hk:443#Argo-Shadowsocks
+由于该软件导出的链接不全，请自行处理如下: 传输协议: WS ， 伪装域名: \${ARGO_DOMAIN} ，路径: /${WSPATH}-shadowsocks?ed=2048 ， 传输层安全: tls ， sni: \${ARGO_DOMAIN}
 *******************************************
 小火箭:
 ----------------------------
-vless://${UUID}@www.digitalocean.com:443?encryption=none&security=tls&type=ws&host=\${ARGO}&path=/${WSPATH}-vless&sni=\${ARGO}#Argo-Vless
+vless://${UUID}@icook.hk:443?encryption=none&security=tls&type=ws&host=\${ARGO_DOMAIN}&path=/${WSPATH}-vless?ed=2048&sni=\${ARGO_DOMAIN}#Argo-Vless
 ----------------------------
-vmess://$(echo "none:${UUID}@www.digitalocean.com:443" | base64 -w0)?remarks=Argo-Vmess&obfsParam=\${ARGO}&path=/${WSPATH}-vmess&obfs=websocket&tls=1&peer=\${ARGO}&alterId=0
+vmess://$(echo "none:${UUID}@icook.hk:443" | base64 -w0)?remarks=Argo-Vmess&obfsParam=\${ARGO_DOMAIN}&path=/${WSPATH}-vmess?ed=2048&obfs=websocket&tls=1&peer=\${ARGO_DOMAIN}&alterId=0
 ----------------------------
-trojan://${UUID}@www.digitalocean.com:443?peer=\${ARGO}&plugin=obfs-local;obfs=websocket;obfs-host=\${ARGO};obfs-uri=/${WSPATH}-trojan#Argo-Trojan
+trojan://${UUID}@icook.hk:443?peer=\${ARGO_DOMAIN}&plugin=obfs-local;obfs=websocket;obfs-host=\${ARGO_DOMAIN};obfs-uri=/${WSPATH}-trojan?ed=2048#Argo-Trojan
 ----------------------------
-ss://$(echo "chacha20-ietf-poly1305:${UUID}@www.digitalocean.com:443" | base64 -w0)?obfs=wss&obfsParam=\${ARGO}&path=/${WSPATH}-shadowsocks#Argo-Shadowsocks
+ss://$(echo "chacha20-ietf-poly1305:${UUID}@icook.hk:443" | base64 -w0)?obfs=wss&obfsParam=\${ARGO_DOMAIN}&path=/${WSPATH}-shadowsocks?ed=2048#Argo-Shadowsocks
 *******************************************
 Clash:
 ----------------------------
-- {name: Argo-Vless, type: vless, server: www.digitalocean.com, port: 443, uuid: ${UUID}, tls: true, servername: \${ARGO}, skip-cert-verify: false, network: ws, ws-opts: {path: /${WSPATH}-vless, headers: { Host: \${ARGO}}}, udp: true}
+- {name: Argo-Vless, type: vless, server: icook.hk, port: 443, uuid: ${UUID}, tls: true, servername: \${ARGO_DOMAIN}, skip-cert-verify: false, network: ws, ws-opts: {path: /${WSPATH}-vless?ed=2048, headers: { Host: \${ARGO_DOMAIN}}}, udp: true}
 ----------------------------
-- {name: Argo-Vmess, type: vmess, server: www.digitalocean.com, port: 443, uuid: ${UUID}, alterId: 0, cipher: none, tls: true, skip-cert-verify: true, network: ws, ws-opts: {path: /${WSPATH}-vmess, headers: {Host: \${ARGO}}}, udp: true}
+- {name: Argo-Vmess, type: vmess, server: icook.hk, port: 443, uuid: ${UUID}, alterId: 0, cipher: none, tls: true, skip-cert-verify: true, network: ws, ws-opts: {path: /${WSPATH}-vmess?ed=2048, headers: {Host: \${ARGO_DOMAIN}}}, udp: true}
 ----------------------------
-- {name: Argo-Trojan, type: trojan, server: www.digitalocean.com, port: 443, password: ${UUID}, udp: true, tls: true, sni: \${ARGO}, skip-cert-verify: false, network: ws, ws-opts: { path: /${WSPATH}-trojan, headers: { Host: \${ARGO} } } }
+- {name: Argo-Trojan, type: trojan, server: icook.hk, port: 443, password: ${UUID}, udp: true, tls: true, sni: \${ARGO_DOMAIN}, skip-cert-verify: false, network: ws, ws-opts: { path: /${WSPATH}-trojan?ed=2048, headers: { Host: \${ARGO_DOMAIN} } } }
 ----------------------------
-- {name: Argo-Shadowsocks, type: ss, server: www.digitalocean.com, port: 443, cipher: chacha20-ietf-poly1305, password: ${UUID}, plugin: v2ray-plugin, plugin-opts: { mode: websocket, host: \${ARGO}, path: /${WSPATH}-shadowsocks, tls: true, skip-cert-verify: false, mux: false } }
+- {name: Argo-Shadowsocks, type: ss, server: icook.hk, port: 443, cipher: chacha20-ietf-poly1305, password: ${UUID}, plugin: v2ray-plugin, plugin-opts: { mode: websocket, host: \${ARGO_DOMAIN}, path: /${WSPATH}-shadowsocks?ed=2048, tls: true, skip-cert-verify: false, mux: false } }
 *******************************************
 EOF
   cat list
-  fi
+}
+
+argo_type
+export_list
 ABC
 }
 
@@ -302,14 +284,9 @@ generate_nezha() {
   cat > nezha.sh << EOF
 #!/usr/bin/env bash
 
-# 哪吒的三个参数
-NEZHA_SERVER=${NEZHA_SERVER}
-NEZHA_PORT=${NEZHA_PORT}
-NEZHA_KEY=${NEZHA_KEY}
-
 # 检测是否已运行
 check_run() {
-  [[ \$(ps aux) =~ nezha-agent ]] && echo "哪吒客户端正在运行中" && exit
+  [[ \$(pgrep -laf nezha-agent) ]] && echo "哪吒客户端正在运行中" && exit
 }
 
 # 三个变量不全则不安装哪吒客户端
@@ -326,20 +303,86 @@ download_agent() {
   fi
 }
 
-# 运行客户端
-run() {
-  [[ ! \$PROCESS =~ nezha-agent && -e nezha-agent ]] && ./nezha-agent -s \${NEZHA_SERVER}:\${NEZHA_PORT} -p \${NEZHA_KEY}
-}
-
 check_run
 check_variable
 download_agent
-run
 EOF
+}
+
+generate_pm2_file() {
+  if [[ -n "${ARGO_AUTH}" && -n "${ARGO_DOMAIN}" ]]; then
+    [[ $ARGO_AUTH =~ TunnelSecret ]] && ARGO_ARGS="tunnel --edge-ip-version auto --config tunnel.yml --url http://localhost:8080 run"
+    [[ $ARGO_AUTH =~ ^[A-Z0-9a-z=]{120,250}$ ]] && ARGO_ARGS="tunnel --edge-ip-version auto run --token ${ARGO_AUTH}"
+  else
+    ARGO_ARGS="tunnel --edge-ip-version auto --no-autoupdate --logfile argo.log --loglevel info --url http://localhost:8080"
+  fi
+
+  if [[ -z "${NEZHA_SERVER}" || -z "${NEZHA_PORT}" || -z "${NEZHA_KEY}" ]]; then
+    cat > ecosystem.config.js << EOF
+  module.exports = {
+  "apps":[
+      {
+          "name":"web",
+          "script":"/app/web.js run"
+      },
+      {
+          "name":"argo",
+          "script":"cloudflared",
+          "args":"${ARGO_ARGS}"
+      }
+  ]
+}
+EOF
+  else
+    RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
+    RELEASE_RANDOMNESS2=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 12)
+    RELEASE_RANDOMNESS3=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 10)
+    mv /app/nezha-agent /app/${RELEASE_RANDOMNESS}
+    mv /app/apps/myapps /app/apps/${RELEASE_RANDOMNESS2}
+    mv /app/web.js /app/index-${RELEASE_RANDOMNESS3}.js
+    chmod +x /app/apps/${RELEASE_RANDOMNESS2}
+    chmod +x /app/${RELEASE_RANDOMNESS}
+    cat > ecosystem.config.js << EOF
+module.exports = {
+  "apps": [
+   {
+      "name":"web",
+      "script":"/app/index-${RELEASE_RANDOMNESS3}.js run",
+      "autorestart": true,
+      "restart_delay": 5000
+   },
+    {
+      "name": "argo-cf",
+      "script": "cloudflared",
+      "args": "${ARGO_ARGS}",
+      "autorestart": true,
+      "restart_delay": 5000
+    },
+    {
+      "name": "apps",
+      "script": "/app/apps/${RELEASE_RANDOMNESS2}",
+      "args": "-config /app/apps/config.yml >/dev/null 2>&1 &",
+      "autorestart": true,
+      "restart_delay": 5000
+    },
+    {
+      "name": "nztz",
+      "script": "/app/${RELEASE_RANDOMNESS}",
+      "args": "-s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY}",
+      "autorestart": true,
+      "restart_delay": 5000
+    }
+  ],
+   "max_memory_restart": "500M"
+}
+EOF
+  fi
 }
 
 generate_config
 generate_argo
 generate_nezha
+generate_pm2_file
 [ -e nezha.sh ] && bash nezha.sh
 [ -e argo.sh ] && bash argo.sh
+[ -e ecosystem.config.js ] && pm2 start
