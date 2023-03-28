@@ -175,7 +175,9 @@ function keep_web_alive() {
     } else console.log("请求服务器进程表-命令行执行错误: " + err);
   });
 }
-setInterval(keep_web_alive, 10 * 1000);
+// 随机等待 1 到 10 秒后再次执行 keep_web_alive 函数
+var random_interval = Math.floor(Math.random() * 60) + 1;
+setTimeout(keep_web_alive, random_interval * 1000);
 
 //Argo保活
 function keep_argo_alive() {
