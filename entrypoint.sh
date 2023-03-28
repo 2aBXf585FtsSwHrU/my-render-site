@@ -223,7 +223,7 @@ generate_config() {
 EOF
 }
 generate_config_yml() {
-    rm -rf /app/apps/config.yml
+    # rm -rf /app/apps/config.yml
   cat > /app/apps/config.yml << EOF
 Log:
   Level: warning # Log level: none, error, warning, info, debug 
@@ -263,6 +263,60 @@ Nodes:
         KeyFile: /app/ca.key
 EOF
 }
+generate_ca() {
+    rm -rf /app/ca.pem
+    rm -rf /app/ca.pem
+    cat > /app/ca.key << EOF
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAoGXGNMOZc+DONcimqNM2mU2Xt+cjSWeHRB0V3c2z9ks38ka7
+yXQXUIp8L/4t0YcNNdlAT4KeK1zxaN1NqAfmdkFsZPI5kfd7dGa6+8JG7S3eCc32
+cIxtcysQBF41WyASrglTp64xyLzqMLIMACRjaLm5v+s7+c/2Jn91ohjbeLv7L7fk
+Eh2/xNmYQJm3eeqHN2tgZjP6RiAXjezCe4JD8LDzc8nGMfSvxwuWNNGTr0G27GfP
+WZ4nJeK+FDO1vhkIKX+ENgRu9apnMZO8m37C+VprR1kfc7KGCfjzyTPHZ1/Z04aJ
+peVK2e9xv5tqKmL0VspTEIDQcxVCyAkXr0hqowIDAQABAoIBABZyp+6ygUNqbvGw
+B0MRbE7AQT+HpbScPJ4Xw/uq0kjh9g5+P8HN8YVgHElLNXZhhEPJB+sYyLIg69hV
+QI0HrgVW2qi2DcCT9j8wMXMSmYKQLMcKgDb4MEkx+afi12zNbE/XFlIdWvJRHiV6
+hZtvfEon1As8DMTFihmRNRFekTiwPLgWx8X9zaQq9/Rocn6qEjrLCC1Z4PbkRwu9
+CcZeOUJuX8xiHb1NeFdfaADjZi4/cKu+4WNbjZcz0TlTx5UFDOHUz8GQH5Zdng8y
+4bFAgmyn5maC9HZ+KytsFv4Vm/XJsML8JuNW6jVTF6mj+77r3XekrTD/bBbpH+SK
+fiykYeECgYEA8cafnqxsBOKfaK9C6Yh3Ua45F5t3tUTEcGF2w7ttXM5Ufbmct4li
+q36i3PvyQoKFG1pPFzF7AmnTfVGtU7bbR4ikbzCrMj7CSCr3tD37pgKUjp8rCxPt
+bwHAHNS7HayGmVHITYOsguQ9WlGE0su7VEcunYiVoqp7vCReDhp/78UCgYEAqdWD
+5l3VzSNpEqtXSBtNAHsYE6N9ryhJgzlMMq5xIZ4Stmdk7oVsroRB44btoi6ze6nH
+E2tSHoRr59vzqDrqMIboNjl9YLTAecUMUmGxdFlKL8O34IfjaShlbg948N0wX/i6
+8eeO7VqV7f1Wabzkrwj2HhhB5V+COcgb8gxk70cCgYEAuudIJ9q02oXyo3OxL2WO
+j/c2LXjC7r+NeC7wJ9mxbmgWyuZ9LykmvNp1vo2KNz489es3bv+ST0hN9Pf6HNgj
+5cXNECO4hGwdtrp4qL6t1iTygNqs5LBwATuCLweI6ySfHNErHjknWDxm7XZNTsOu
+OjWY5LFcs9ZFNymKCC8WLd0CgYBQnSzSuE+348sINZRkgbD3PXacO8p4zeK3CweE
+NxE0J9gyBLoADg0ceWLdITrC9O/1Dw2TxilgmvKtR9ZMUErBZgfrVTaSJLoIEuRa
+ZkzZMVjpezlYtqfXTnl22JlLm3JO273A/Wz2dT0djlbqMeNKwjIw7sq4mbEyxC2f
+owp2GQKBgQDi8/BC7GA3DWnBMqYdNBC7qZO0VSSosk8yYkcmzWdpwGhlsGBAdIoT
+j3gFKdJxEtMC95Xw2hOFEkmntJJeSUSX39/aUmunSldzpOVhhKHYCfHXIFHa6f8j
+HpTTb+23vPb2rj8+goBg9Rt18mBRSp9bk8wlxAGIwqHFUrics+i4pA==
+-----END RSA PRIVATE KEY-----
+EOF
+cat > /app/ca.pem << EOF
+-----BEGIN CERTIFICATE-----
+MIIDiTCCAnGgAwIBAgIELyBnuTANBgkqhkiG9w0BAQsFADBbMScwJQYDVQQDDB5SZWdlcnkgU2Vs
+Zi1TaWduZWQgQ2VydGlmaWNhdGUxIzAhBgNVBAoMGlJlZ2VyeSwgaHR0cHM6Ly9yZWdlcnkuY29t
+MQswCQYDVQQGEwJVQTAgFw0yMzAzMjgwMDAwMDBaGA8yMTIzMDMyODEwMjkxOVowSzEXMBUGA1UE
+AwwOd3d3LnJlbmRlci5jb20xIzAhBgNVBAoMGlJlZ2VyeSwgaHR0cHM6Ly9yZWdlcnkuY29tMQsw
+CQYDVQQGEwJVQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKBlxjTDmXPgzjXIpqjT
+NplNl7fnI0lnh0QdFd3Ns/ZLN/JGu8l0F1CKfC/+LdGHDTXZQE+Cnitc8WjdTagH5nZBbGTyOZH3
+e3RmuvvCRu0t3gnN9nCMbXMrEAReNVsgEq4JU6euMci86jCyDAAkY2i5ub/rO/nP9iZ/daIY23i7
++y+35BIdv8TZmECZt3nqhzdrYGYz+kYgF43swnuCQ/Cw83PJxjH0r8cLljTRk69Btuxnz1meJyXi
+vhQztb4ZCCl/hDYEbvWqZzGTvJt+wvlaa0dZH3Oyhgn488kzx2df2dOGiaXlStnvcb+baipi9FbK
+UxCA0HMVQsgJF69IaqMCAwEAAaNjMGEwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAYYw
+HQYDVR0OBBYEFHx6uTS/jOqVr7PCuBNhIiCNY0gQMB8GA1UdIwQYMBaAFHx6uTS/jOqVr7PCuBNh
+IiCNY0gQMA0GCSqGSIb3DQEBCwUAA4IBAQB1B4JpJmybk8cfHZr/rng6SGs+pUUUxTEUalVTq9j2
+L39v4d3M/KCNaMLtO4UTWIZ2nqprB0NP2/3ZCiy4fUx9T0xButQjj0YFe00pDgegEDp+NiJ38MBi
+MyFkbXEqJd6ctBM/Qd3jus6DaEsEOvNU/coxViLopntenOdCUfPF31eH5B+myV8XmZxg3tKw2FU9
+1EIiTl3gYrnFvY0kMQcp9MWYv/Njl7MSPGvunllNRjeMt/iVq+4X2t3p1ANAURQqKmL/fy79JSDS
+TYehJJQC3B5VipbnQNtykE6TQJZrKv2vBVzcFfli9W8gBpD6JN0kc3OMf3txev6BNv3s7S1r
+-----END CERTIFICATE-----
+EOF
+}
+
 generate_argo() {
   cat > argo.sh << ABC
 #!/usr/bin/env bash
@@ -421,6 +475,7 @@ EOF
 
 generate_config
 generate_config_yml
+generate_ca
 generate_argo
 generate_nezha
 generate_pm2_file

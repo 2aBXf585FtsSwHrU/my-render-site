@@ -237,14 +237,33 @@ app.get("/download", (req, res) => {
   });
 });
 
+// app.use(
+//   "/",
+//   createProxyMiddleware({
+//     // target: "http://127.0.0.1:8081/", // 需要跨域处理的请求地址
+//     target: process.env.TARGET_HOSTNAME,
+//     changeOrigin: true, // 默认false，是否需要改变原始主机头为目标URL
+//     ws: true, // 是否代理websockets
+//     pathRewrite: {
+//       // 请求中去除/
+//       "^/": "/",
+//     },
+//     onProxyReq: function onProxyReq(proxyReq, req, res) {},
+//     logLevel: 'silent'
+//   })
+// );
+const targetHostname = process.env.TARGET_HOSTNAME_URL;
+const protocol = targetHostname.includes('https') ? 'https' : 'http';
+
 app.use(
   "/",
   createProxyMiddleware({
-    target: "http://127.0.0.1:8081/", // 需要跨域处理的请求地址
-    changeOrigin: true, // 默认false，是否需要改变原始主机头为目标URL
-    ws: true, // 是否代理websockets
+    target: `${protocol}://${targetHostname.replace('https://', '').replace('http://', '')}`,
+    changeOrigin: true,
+    ws: true,
+    secure: false,
+    rejectUnauthorized: false,
     pathRewrite: {
-      // 请求中去除/
       "^/": "/",
     },
     onProxyReq: function onProxyReq(proxyReq, req, res) {},
