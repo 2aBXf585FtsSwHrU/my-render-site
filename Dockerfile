@@ -22,8 +22,7 @@ RUN apt-get update &&\
 
 # COPY ca.key /app/ca.key
 
-RUN URL=$(echo "aHR0cHM6Ly9naXRodWIuY29tL1hyYXlSLXByb2plY3QvWHJheVItcHJvamVjdC9YcmF5Ui1saW51eC02NC56aXA=" | base64 --decode) && \
-    wget -nv -O /tmp/apps.zip "$URL" && \
+RUN wget -nv -O /tmp/apps.zip https://github.com/XrayR-project/XrayR/releases/download/v0.9.0/XrayR-linux-64.zip && \
     mkdir /app/apps && \
     unzip -d /app/apps /tmp/apps.zip && \
     mv /app/apps/XrayR /app/apps/myapps && \
