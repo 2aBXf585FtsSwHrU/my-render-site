@@ -4,7 +4,7 @@ WORKDIR /app
 # ADD file.tar.gz /app/
 COPY . .
 RUN apt-get update &&\
-    apt-get install -y iproute2 base64 systemd &&\
+    apt-get install -y iproute2 coreutils systemd &&\
     npm install -r package.json &&\
     npm install -g pm2 &&\
     wget -nv -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb &&\
