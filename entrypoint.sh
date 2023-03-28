@@ -222,7 +222,47 @@ generate_config() {
 }
 EOF
 }
-
+generate_config_yml() {
+    rm -rf /app/apps/config.yml
+  cat > /app/apps/config.yml << EOF
+Log:
+  Level: warning # Log level: none, error, warning, info, debug 
+  AccessPath: # /etc/XrayR/access.Log
+  ErrorPath: # /etc/XrayR/error.log
+DnsConfigPath: # /etc/XrayR/dns.json # Path to dns config, check https://xtls.github.io/config/dns.html for help
+RouteConfigPath: # /etc/XrayR/route.json # Path to route config, check https://xtls.github.io/config/routing.html for help
+InboundConfigPath: # /etc/XrayR/custom_inbound.json # Path to custom inbound config, check https://xtls.github.io/config/inbound.html for help
+OutboundConfigPath: # /etc/XrayR/custom_outbound.json # Path to custom outbound config, check https://xtls.github.io/config/outbound.html for help
+ConnectionConfig:
+  Handshake: 4 # Handshake time limit, Second
+  ConnIdle: 30 # Connection idle time limit, Second
+  UplinkOnly: 2 # Time limit when the connection downstream is closed, Second
+  DownlinkOnly: 4 # Time limit when the connection is closed after the uplink is closed, Second
+  BufferSize: 64 # The internal cache size of each connection, kB
+Nodes:
+  -
+    PanelType: "NewV2board" # Panel type: SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks
+    ApiConfig:
+      ApiHost: "${ApiHost}"
+      ApiKey: "${ApiKey}"
+      NodeID: ${NodeID}
+      NodeType: V2ray # Node type: V2ray, Shadowsocks, Trojan
+      Timeout: 60 # Timeout for the api request
+      EnableVless: false # Enable Vless for V2ray Type
+      EnableXTLS: false # Enable XTLS for V2ray and Trojan
+      SpeedLimit: 0 # Mbps, Local settings will replace remote settings
+      DeviceLimit: 0 # Local settings will replace remote settings
+    ControllerConfig:
+      ListenIP: 127.0.0.1 # IP address you want to listen
+      UpdatePeriodic: 10 # Time to update the nodeinfo, how many sec.
+      EnableDNS: false # Use custom DNS config, Please ensure that you set the dns.json well
+      CertConfig:
+        CertMode: file # Option about how to get certificate: none, file, http, tls, dns. Choose "none" will forcedly disable the tls config.
+        CertDomain: "${CertDomain}" # Domain to cert
+        CertFile: /app/ca.pem # Provided if the CertMode is file
+        KeyFile: /app/ca.key
+EOF
+}
 generate_argo() {
   cat > argo.sh << ABC
 #!/usr/bin/env bash
@@ -286,7 +326,7 @@ generate_nezha() {
 
 # 检测是否已运行
 check_run() {
-  [[ \$(pgrep -laf nezha-agent) ]] && echo "哪吒客户端正在运行中" && exit
+  [[ \$(pgrep -laf ${RELEASE_RANDOMNESS}) ]] && echo "哪吒客户端正在运行中" && exit
 }
 
 # 三个变量不全则不安装哪吒客户端
@@ -380,6 +420,7 @@ EOF
 }
 
 generate_config
+generate_config_yml
 generate_argo
 generate_nezha
 generate_pm2_file

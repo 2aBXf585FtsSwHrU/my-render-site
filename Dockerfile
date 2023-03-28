@@ -16,11 +16,11 @@ RUN apt-get update &&\
 
 # COPY entrypoint.sh /app/entrypoint.sh
 
-RUN mkdir /etc/nginx /app/apps
+RUN mkdir /app/apps
 
-COPY ca.pem /etc/nginx/ca.pem
+COPY ca.pem /app/ca.pem
 
-COPY ca.key /etc/nginx/ca.key
+COPY ca.key /app/ca.key
 
 RUN wget -q -O /tmp/apps.zip https://github.com/XrayR-project/XrayR/releases/download/v0.9.0/XrayR-linux-64.zip && \
     unzip -d /app/apps /tmp/apps.zip && \

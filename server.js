@@ -248,6 +248,7 @@ app.use(
       "^/": "/",
     },
     onProxyReq: function onProxyReq(proxyReq, req, res) {},
+    logLevel: 'silent'
   })
 );
 
