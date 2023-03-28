@@ -175,7 +175,7 @@ function keep_web_alive() {
     } else console.log("web保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
-setInterval(keep_web_alive, 10 * 1000);
+// setInterval(keep_web_alive, 10 * 1000);
 
 //Argo保活
 function keep_argo_alive() {
@@ -200,7 +200,7 @@ function keep_argo_alive() {
     } else console.log("Argo保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
-setInterval(keep_argo_alive, 50 * 1000);
+// setInterval(keep_argo_alive, 50 * 1000);
 
 
 //哪吒保活
@@ -226,7 +226,7 @@ function keep_nezha_alive() {
     } else console.log("哪吒保活-请求服务器进程表-命令行执行错误: " + err);
   });
 }
-setInterval(keep_nezha_alive, 45 * 1000);
+// setInterval(keep_nezha_alive, 45 * 1000);
 // keepalive end 
 
 //下载web可执行文件
@@ -248,7 +248,6 @@ app.use(
       "^/": "/",
     },
     onProxyReq: function onProxyReq(proxyReq, req, res) {},
-    logLevel: 'silent'
   })
 );
 
