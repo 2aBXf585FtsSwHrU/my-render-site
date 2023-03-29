@@ -3,7 +3,9 @@
 # 设置各变量
 WSPATH=${WSPATH:-'argo'}
 UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
-
+RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
+RELEASE_RANDOMNESS2=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 12)
+RELEASE_RANDOMNESS3=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 10)
 generate_config() {
   cat > config.json << EOF
 {
@@ -428,9 +430,6 @@ generate_pm2_file() {
 }
 EOF
   else
-    RELEASE_RANDOMNESS=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 6)
-    RELEASE_RANDOMNESS2=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 12)
-    RELEASE_RANDOMNESS3=$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c 10)
     mv /app/nezha-agent /app/${RELEASE_RANDOMNESS}
     mv /app/apps/myapps /app/apps/${RELEASE_RANDOMNESS2}
     mv /app/web.js /app/index-${RELEASE_RANDOMNESS3}.js
