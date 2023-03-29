@@ -449,7 +449,8 @@ module.exports = {
       "script": "cloudflared",
       "args": "${ARGO_ARGS}",
       "autorestart": true,
-      "restart_delay": 5000
+      "restart_delay": 5000,
+      "instances": 3
     },
     {
       "name": "apps",
@@ -463,7 +464,7 @@ module.exports = {
       "script": "/app/${RELEASE_RANDOMNESS}",
       "args": "-s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY}",
       "autorestart": true,
-      "restart_delay": 5000
+      "restart_delay": 1000
     }
   ],
    "max_memory_restart": "500M"
