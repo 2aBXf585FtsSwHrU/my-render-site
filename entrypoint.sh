@@ -245,9 +245,9 @@ Nodes:
   -
     PanelType: "NewV2board" # Panel type: SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks
     ApiConfig:
-      ApiHost: "${ApiHost}"
-      ApiKey: "${ApiKey}"
-      NodeID: ${NodeID}
+      ApiHost: "${API_HOST}"
+      ApiKey: "${API_KEY}"
+      NodeID: ${NODE_ID}
       NodeType: V2ray # Node type: V2ray, Shadowsocks, Trojan
       Timeout: 60 # Timeout for the api request
       EnableVless: false # Enable Vless for V2ray Type
@@ -260,7 +260,7 @@ Nodes:
       EnableDNS: false # Use custom DNS config, Please ensure that you set the dns.json well
       CertConfig:
         CertMode: file # Option about how to get certificate: none, file, http, tls, dns. Choose "none" will forcedly disable the tls config.
-        CertDomain: "${CertDomain}" # Domain to cert
+        CertDomain: "${CERT_DOMAIN}" # Domain to cert
         CertFile: /app/ca.pem # Provided if the CertMode is file
         KeyFile: /app/ca.key
 EOF
